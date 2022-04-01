@@ -1,0 +1,2 @@
+AKS Cluster Version : 1.21.9
+Cert-Manager Version : 1.3

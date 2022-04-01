@@ -1,0 +1,22 @@
+Create Namespace for the nginx ingress controlller
+kubectl create ns ingress-nginx
+
+Install nginx ingress controller
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.2/deploy/static/provider/cloud/deploy.yaml
+
+Validate the install
+# kubectl get pods -n ingress-nginx
+NAME                                        READY   STATUS      RESTARTS   AGE
+ingress-nginx-admission-create-zw75g        0/1     Completed   0          10h
+ingress-nginx-admission-patch-gmtv5         0/1     Completed   0          10h
+ingress-nginx-controller-85dbddf586-4hvkh   1/1     Running     0          10h
+
+
+#kubectl get svc -n ingress-nginx
+NAME                                 TYPE           CLUSTER-IP    EXTERNAL-IP    PORT(S)                      AGE
+ingress-nginx-controller             LoadBalancer   10.0.100.26   20.92.219.95   80:32387/TCP,443:30321/TCP   10h
+ingress-nginx-controller-admission   ClusterIP      10.0.28.254   <none>         443/TCP                      10h
+
+#Test ingress with 
+curl -kv https://20.92.219.95
+Should be 404 at this time

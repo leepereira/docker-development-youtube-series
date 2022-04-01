@@ -1,0 +1,48 @@
+# Add the Jetstack Helm repository
+
+helm repo add jetstack https://charts.jetstack.io
+helm repo update
+
+
+# Create Namespace
+kubectl create ns cert-manager
+
+#Change the version to the one that you need to 
+helm install \
+  cert-manager jetstack/cert-manager \
+  --namespace cert-manager \
+  --create-namespace \
+  --version v1.3.0 \
+  --set installCRDs=true
+
+
+Following CRDs should be installed as part of the install
+#kubectl get crds | grep cert
+certificaterequests.cert-manager.io                         2022-03-30T04:45:59Z
+certificates.cert-manager.io                                2022-03-30T04:45:59Z
+challenges.acme.cert-manager.io                             2022-03-30T04:45:59Z
+clusterissuers.cert-manager.io                              2022-03-30T04:45:59Z
+issuers.cert-manager.io                                     2022-03-30T04:45:59Z
+orders.acme.cert-manager.io                                 2022-03-30T04:45:59Z
+
+
+Following are the resources that are installed in the cert-manager namespace
+NAME                                           READY   STATUS    RESTARTS   AGE
+pod/cert-manager-64b55bf87f-9nddz              1/1     Running   0          34h
+pod/cert-manager-cainjector-765f78c9fb-wm9s9   1/1     Running   0          34h
+pod/cert-manager-webhook-56d79f9489-57799      1/1     Running   0          34h
+
+NAME                           TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
+service/cert-manager           ClusterIP   10.0.192.99    <none>        9402/TCP   34h
+service/cert-manager-webhook   ClusterIP   10.0.161.254   <none>        443/TCP    34h
+
+NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/cert-manager              1/1     1            1           34h
+deployment.apps/cert-manager-cainjector   1/1     1            1           34h
+deployment.apps/cert-manager-webhook      1/1     1            1           34h
+
+NAME                                                 DESIRED   CURRENT   READY   AGE
+replicaset.apps/cert-manager-64b55bf87f              1         1         1       34h
+replicaset.apps/cert-manager-cainjector-765f78c9fb   1         1         1       34h
+replicaset.apps/cert-manager-webhook-56d79f9489      1         1         1       34h
+

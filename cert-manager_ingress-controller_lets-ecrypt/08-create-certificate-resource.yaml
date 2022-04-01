@@ -1,0 +1,29 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: example-app
+  namespace: default
+spec:
+  dnsNames:
+    - pereira.vasaiforyou.com
+  secretName: example-app-tls
+  issuerRef:
+    name: letsencrypt-cluster-issuer
+    kind: ClusterIssuer
+
+
+
+
+# Events:
+#   Type    Reason     Age   From          Message
+#   ----    ------     ----  ----          -------
+#   Normal  Issuing    2m1s  cert-manager  Issuing certificate as Secret does not exist
+#   Normal  Generated  2m1s  cert-manager  Stored new private key in temporary Secret resource "example-app-kg5bq"
+#   Normal  Requested  2m1s  cert-manager  Created new CertificateRequest resource "example-app-btz4m"
+#   Normal  Issuing    94s   cert-manager  The certificate has been successfully issued
+
+
+
+# kubectl get certificate
+# NAME          READY   SECRET            AGE
+# example-app   True    example-app-tls   93m

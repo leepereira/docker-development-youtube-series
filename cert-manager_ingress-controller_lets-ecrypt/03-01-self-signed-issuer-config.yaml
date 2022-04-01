@@ -1,0 +1,9 @@
+# Create a test name-space to test this out : kubectl create ns cert-manager-test
+
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: test-selfsigned
+  namespace: cert-manager-test
+spec:
+  selfSigned: {}

@@ -1,0 +1,25 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-cluster-issuer
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: your-email@email.com
+    privateKeySecretRef:
+      name: letsencrypt-cluster-issuer-key
+    solvers:
+    - http01:
+       ingress:
+         class: nginx
+
+
+
+
+# Status:
+#   Acme:
+#     Last Registered Email:  your-email@email.com
+#     Uri:                    https://acme-v02.api.letsencrypt.org/acme/acct/476743390
+#   Conditions:
+#     Last Transition Time:  2022-03-31T14:37:41Z
+#     Message:               The ACME account was registered with the ACME server
